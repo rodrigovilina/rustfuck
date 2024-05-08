@@ -1,10 +1,13 @@
 mod node;
 mod token;
 mod vm;
+mod lexer;
 
-use token::Token;
+use {lexer::lex, token::Token};
 
-fn main() {}
+fn main() {
+  lex("");
+}
 
 pub struct BalancedTokens {
   pub tokens: Vec<Token>,
