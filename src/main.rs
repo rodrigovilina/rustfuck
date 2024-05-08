@@ -1,11 +1,10 @@
+mod node;
 mod token;
 mod vm;
-mod node;
 
 use token::Token;
 
-fn main() { }
-
+fn main() {}
 
 pub struct BalancedTokens {
   pub tokens: Vec<Token>,
@@ -30,4 +29,3 @@ impl BalancedTokens {
     Self { tokens }
   }
 }
-
