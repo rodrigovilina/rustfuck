@@ -1,34 +1,38 @@
+use {
+  node::{parse, Node}, std::{
+    io::{self, Error, ErrorKind, Read},
+    str::from_utf8,
+  }, token::BalancedTokens
+};
+
 mod node;
 mod token;
 mod vm;
-mod lexer;
-
-use {lexer::lex, token::Token};
 
 fn main() {
-  lex("");
+  let code: &str = "";
+  let tokens: BalancedTokens = BalancedTokens::lex(code);
+  let nodes: Vec<Node> = parse(tokens.tokens);
+  dbg!(nodes);
 }
 
-pub struct BalancedTokens {
-  pub tokens: Vec<Token>,
-}
+pub fn read_char_from_stdin() -> char {
+  let mut buffer = [0; 4];
+  let mut stdin = io::stdin();
 
-impl BalancedTokens {
-  pub fn new(tokens: Vec<Token>) -> Self {
-    let mut brackets: usize = 0;
-
-    for token in tokens.iter() {
-      match token {
-        Token::Open => brackets += 1,
-        Token::Close => brackets -= 1,
-        _ => (),
-      }
+  stdin.read_exact(&mut buffer[0..1]).unwrap();
+  let mut len = 1;
+  if from_utf8(&buffer[0..len]).is_err() {
+    while len < 4 && (buffer[len - 1] & 0b11000000) == 0b10000000 {
+      stdin.read_exact(&mut buffer[len..len + 1]).unwrap();
+      len += 1;
     }
-
-    if brackets != 0 {
-      panic!("Unbalanced brackets");
-    }
-
-    Self { tokens }
   }
+
+  from_utf8(&buffer[0..len])
+    .unwrap()
+    .chars()
+    .next()
+    .ok_or(Error::new(ErrorKind::UnexpectedEof, "No character found"))
+    .unwrap()
 }

@@ -18,6 +18,14 @@ impl<const N: usize> Brainfuck<N> {
     }
   }
 
+  fn debug(&self) {
+    for (i, &x) in self.data.iter().enumerate() {
+      if x != 0 {
+        println!("index: {}, value: {} {}", i, x, x as char);
+      }
+    }
+  }
+
   fn run(&mut self, nodes: Vec<Node>) {
     for node in nodes {
       match node {
