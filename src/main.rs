@@ -10,7 +10,7 @@ mod token;
 mod vm;
 
 fn main() {
-  let code: &str = "";
+  let code: &str = "+-<>";
   let tokens: BalancedTokens = BalancedTokens::lex(code);
   let nodes: Vec<Node> = parse(tokens.tokens);
   dbg!(nodes);
