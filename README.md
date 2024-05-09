@@ -18,8 +18,8 @@ character long.
   wrap to `0`.
 - `<`: Decrement the data pointer by one. If the current value is `0` it'll wrap
   to `29_999`.
-- `.`: Writes the currently pointed byte to STDOUT.
-- `,`: Reads exactly one byte from STDIN and store it in the currently pointed
+- `.`: Writes the currently pointed byte to `STDOUT`.
+- `,`: Reads exactly one byte from `STDIN` and store it in the currently pointed
   byte.
 - `[`: Run the inner instructions only if the currently pointed byte is
   non-zero.
@@ -30,7 +30,7 @@ Any other characters will be ignored.
 
 ### Notes
 
-Brainfuck has no way of interacting with other programs besides STOUT. There is
+Brainfuck has no way of interacting with other programs besides `STDOUT`. There is
 no native way of splitting code into multiple files either.
 
 ## Tools
