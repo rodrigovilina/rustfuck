@@ -42,7 +42,7 @@ For now, the only available tool is a **file runner**.
 
 Run a file of brainfuck code just by referencing it by name:
 
-```sh
+```bash
 rustfuck hello_world.bf
 ```
 
