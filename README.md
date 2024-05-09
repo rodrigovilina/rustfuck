@@ -30,7 +30,8 @@ Any other characters will be ignored.
 
 ## Tools
 
-For now, the only available tools is a **file runner**.
+For now, the only available tool is a **file runner**.
+
 
 ### Runner
 
@@ -42,3 +43,13 @@ rustfuck hello_world.bf
 
 After running the file, the whole state of the machine will be printed to
 screen. Memory cells with a value of zero are not presented.
+
+
+### REPL
+
+TODO!
+
+
+### Compiler
+
+TODO!
