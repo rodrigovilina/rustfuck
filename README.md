@@ -28,6 +28,11 @@ character long.
 
 Any other characters will be ignored.
 
+### Notes
+
+Brainfuck has no way of interacting with other programs besides STOUT. There is
+no native way of splitting code into multiple files either.
+
 ## Tools
 
 For now, the only available tool is a **file runner**.
