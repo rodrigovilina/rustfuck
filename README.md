@@ -3,6 +3,8 @@
 **Rustfuck** is a Rust implementation of the **Brainfuck** esoteric programming
 language.
 
+https://en.wikipedia.org/wiki/Brainfuck
+
 Brainfuck was designed to have a small implementation and run on a simple
 virtual machine.
 
