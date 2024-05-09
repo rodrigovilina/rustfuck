@@ -9,7 +9,7 @@ pub struct Brainfuck<const N: usize> {
 }
 
 impl<const N: usize> Brainfuck<N> {
-  fn new() -> Self {
+  pub fn new() -> Self {
     Brainfuck {
       data_pointer: 0,
       data: [0; N],
@@ -18,15 +18,23 @@ impl<const N: usize> Brainfuck<N> {
     }
   }
 
-  fn debug(&self) {
+  pub fn debug(&self) {
+    println!("Data Pointer: {}", self.data_pointer);
+    println!("Memory:");
     for (i, &x) in self.data.iter().enumerate() {
       if x != 0 {
-        println!("index: {}, value: {} {}", i, x, x as char);
+        println!("  Index: {}, Value: {} {}", i, x, x as char);
       }
+    }
+    println!("Input: {:?}", self.input);
+    println!("Output: {:?}", self.output);
+
+    if let Ok(string) = String::from_utf8(self.output.clone()) {
+      println!("Output: {}", string)
     }
   }
 
-  fn run(&mut self, nodes: Vec<Node>) {
+  pub fn run(&mut self, nodes: Vec<Node>) {
     for node in nodes {
       match node {
         Node::Right => self.right(),

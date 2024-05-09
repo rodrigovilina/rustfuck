@@ -1,19 +1,38 @@
 use {
-  node::{parse, Node}, std::{
+  crate::{lexer::lex, parser::parse, vm::Brainfuck},
+  node::Node,
+  std::{
     io::{self, Error, ErrorKind, Read},
     str::from_utf8,
-  }, token::BalancedTokens
+  },
+  token::BalancedTokens,
 };
 
+mod lexer;
 mod node;
+mod parser;
 mod token;
 mod vm;
 
 fn main() {
-  let code: &str = "+-<>";
-  let tokens: BalancedTokens = BalancedTokens::lex(code);
+  let args: Vec<String> = std::env::args().collect();
+
+  match args.len() {
+    2 => {},
+    _ => panic!(),
+  }
+
+  let code: String =
+    std::fs::read_to_string(&args[1]).expect("Should have been able to read the file");
+  dbg!(&code);
+  let tokens: BalancedTokens = lex(&code);
+  dbg!(&tokens);
   let nodes: Vec<Node> = parse(tokens.tokens);
-  dbg!(nodes);
+  dbg!(&nodes);
+  let mut vm: Brainfuck<30_000> = Brainfuck::new();
+
+  vm.run(nodes);
+  vm.debug();
 }
 
 pub fn read_char_from_stdin() -> char {
