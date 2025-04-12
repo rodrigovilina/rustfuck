@@ -9,6 +9,7 @@ use {
 };
 
 mod add;
+mod comma;
 mod lexer;
 mod node;
 mod parser;
