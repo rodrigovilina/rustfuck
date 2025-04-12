@@ -1,4 +1,4 @@
-use crate::{add::Add, node::Node};
+use crate::{add::Add, node::Node, sub::Sub};
 
 #[derive(Debug)]
 pub struct Brainfuck<const N: usize> {
@@ -52,10 +52,6 @@ impl<const N: usize> Brainfuck<N> {
     }
   }
 
-  fn sub(&mut self) {
-    self.data[self.data_pointer] = self.data[self.data_pointer].wrapping_sub(1);
-  }
-
   fn right(&mut self) {
     match self.data_pointer {
       a if a == N - 1 => self.data_pointer = 0,
@@ -82,17 +78,6 @@ impl<const N: usize> Brainfuck<N> {
 #[cfg(test)]
 mod tests {
   use super::*;
-
-  #[test]
-  fn test_sub() {
-    let mut vm: Brainfuck<10> = Brainfuck::<10>::new();
-
-    vm.sub();
-    assert_eq!(vm.data[0], 255);
-
-    vm.sub();
-    assert_eq!(vm.data[0], 254);
-  }
 
   #[test]
   fn test_left() {

@@ -12,6 +12,7 @@ mod add;
 mod lexer;
 mod node;
 mod parser;
+mod sub;
 mod token;
 mod vm;
 
