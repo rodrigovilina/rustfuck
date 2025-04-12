@@ -9,8 +9,8 @@ pub struct Brainfuck<const N: usize> {
 }
 
 impl<const N: usize> Brainfuck<N> {
-  pub fn new() -> Self {
-    Brainfuck {
+  pub const fn new() -> Self {
+    Self {
       data_pointer: 0,
       data: [0; N],
       output: vec![],
@@ -30,7 +30,7 @@ impl<const N: usize> Brainfuck<N> {
     println!("Output: {:?}", self.output);
 
     if let Ok(string) = String::from_utf8(self.output.clone()) {
-      println!("Output: {}", string)
+      println!("Output: {string}");
     }
   }
 
