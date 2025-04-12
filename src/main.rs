@@ -1,9 +1,12 @@
-use {
-  crate::{lexer::lex, parser::parse, vm::Brainfuck},
-  node::Node,
-  std::io::{self, BufRead},
-  token::BalancedTokens,
-};
+#![deny(clippy::complexity)]
+#![deny(clippy::nursery)]
+#![deny(clippy::pedantic)]
+#![deny(clippy::perf)]
+#![deny(clippy::empty_structs_with_brackets)]
+#![deny(clippy::min_ident_chars)]
+#![deny(clippy::panic)]
+#![deny(clippy::expect_used)]
+#![deny(clippy::unwrap_used)]
 
 mod add;
 mod comma;
@@ -16,6 +19,13 @@ mod right;
 mod sub;
 mod token;
 mod vm;
+
+use {
+  crate::{lexer::lex, parser::parse, vm::Brainfuck},
+  node::Node,
+  std::io::{self, BufRead},
+  token::BalancedTokens,
+};
 
 fn main() {
   let args: Vec<String> = std::env::args().collect();
