@@ -7,15 +7,11 @@ pub fn parse(tokens: Vec<Token>) -> Vec<Node> {
     Some(token) => match token {
       Token::Comma | Token::Dot | Token::Left | Token::Right | Token::Minus | Token::Plus => {
         let (node, rest): (Node, Vec<Token>) = parse_instruction(tokens).unwrap();
-        let mut nodes = vec![node];
-        nodes.append(&mut parse(rest));
-        nodes
+        parse_rest(node, rest)
       },
       Token::Open => {
         let (node, rest): (Node, Vec<Token>) = parse_loop(tokens).unwrap();
-        let mut nodes: Vec<Node> = vec![node];
-        nodes.append(&mut parse(rest));
-        nodes
+        parse_rest(node, rest)
       },
       Token::Close => {
         panic!("Unexpected close bracket");
@@ -23,6 +19,12 @@ pub fn parse(tokens: Vec<Token>) -> Vec<Node> {
     },
     None => vec![],
   }
+}
+
+fn parse_rest(node: Node, rest: Vec<Token>) -> Vec<Node> {
+  let mut nodes: Vec<Node> = vec![node];
+  nodes.append(&mut parse(rest));
+  nodes
 }
 
 fn parse_instruction(tokens: Vec<Token>) -> Option<(Node, Vec<Token>)> {
