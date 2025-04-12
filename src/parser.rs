@@ -43,7 +43,7 @@ fn parse_loop(tokens: Vec<Token>) -> Option<(Node, Vec<Token>)> {
   Some((loop_node, rest_tokens))
 }
 
-fn parse_node_from_token(token: Token) -> Option<Node> {
+const fn parse_node_from_token(token: Token) -> Option<Node> {
   match token {
     Token::Dot => Some(Node::Dot),
     Token::Comma => Some(Node::Comma),
@@ -61,9 +61,7 @@ fn split_tokens(tokens: Vec<Token>) -> (Vec<Token>, Vec<Token>) {
   let mut loop_tokens: Vec<Token> = vec![];
   let mut close_index: usize = 0;
 
-  if head != &Token::Open {
-    panic!("Expected open bracket");
-  }
+  assert!(!(head != &Token::Open), "Expected open bracket");
 
   'lup: for (index, token) in tokens[1..].iter().enumerate() {
     match token {
