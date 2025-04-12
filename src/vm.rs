@@ -1,4 +1,4 @@
-use crate::{add::Add, comma::Comma, node::Node, sub::Sub};
+use crate::{add::Add, comma::Comma, dot::Dot, node::Node, sub::Sub};
 
 #[derive(Debug)]
 pub struct Brainfuck<const N: usize> {
@@ -64,10 +64,6 @@ impl<const N: usize> Brainfuck<N> {
       0 => self.data_pointer = N - 1,
       _ => self.data_pointer -= 1,
     }
-  }
-
-  fn dot(&mut self) {
-    self.output.append(&mut vec![self.data[self.data_pointer]]);
   }
 }
 
