@@ -19,7 +19,7 @@ impl BalancedTokens {
   pub fn new(tokens: Vec<Token>) -> Self {
     let mut brackets: usize = 0;
 
-    for token in tokens.iter() {
+    for token in &tokens {
       match token {
         Token::Open => brackets += 1,
         Token::Close => brackets -= 1,
@@ -27,9 +27,7 @@ impl BalancedTokens {
       }
     }
 
-    if brackets != 0 {
-      panic!("Unbalanced brackets");
-    }
+    assert!((brackets == 0), "Unbalanced brackets");
 
     Self { tokens }
   }
