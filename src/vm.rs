@@ -43,6 +43,7 @@ impl<const N: usize> Brainfuck<N> {
         Node::Comma => self.comma(),
         Node::Plus => self.add(),
         Node::Minus => self.sub(),
+        Node::Space | Node::NewLine => {},
         Node::Loop(nodes) => {
           while self.data[self.data_pointer] != 0 {
             self.run(nodes.clone());

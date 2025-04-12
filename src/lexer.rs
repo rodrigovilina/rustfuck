@@ -1,6 +1,6 @@
 use crate::token::{BalancedTokens, Token};
 
-pub fn lex_token_from_char(value: char) -> Option<Token> {
+pub const fn lex_token_from_char(value: char) -> Option<Token> {
   match value {
     '.' => Some(Token::Dot),
     ',' => Some(Token::Comma),
@@ -10,6 +10,8 @@ pub fn lex_token_from_char(value: char) -> Option<Token> {
     '>' => Some(Token::Right),
     '[' => Some(Token::Open),
     ']' => Some(Token::Close),
+    ' ' => Some(Token::Space),
+    '\n' => Some(Token::NewLine),
     _ => None,
   }
 }
@@ -18,8 +20,7 @@ pub fn lex(code: &str) -> BalancedTokens {
   BalancedTokens::new(
     code
       .chars()
-      .enumerate()
-      .filter_map(|(_, c)| lex_token_from_char(c))
+      .filter_map(lex_token_from_char)
       .collect(),
   )
 }

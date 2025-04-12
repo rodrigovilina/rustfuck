@@ -9,6 +9,7 @@
 #![deny(clippy::unwrap_used)]
 
 mod add;
+mod balanced_tokens;
 mod comma;
 mod dot;
 mod left;
@@ -18,6 +19,7 @@ mod parser;
 mod right;
 mod sub;
 mod token;
+mod tokens;
 mod vm;
 
 use {

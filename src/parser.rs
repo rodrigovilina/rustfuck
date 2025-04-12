@@ -5,7 +5,14 @@ pub fn parse(tokens: Vec<Token>) -> Vec<Node> {
 
   match maybe_first_token {
     Some(token) => match token {
-      Token::Comma | Token::Dot | Token::Left | Token::Right | Token::Minus | Token::Plus => {
+      Token::Comma
+      | Token::Dot
+      | Token::Left
+      | Token::Right
+      | Token::Minus
+      | Token::Plus
+      | Token::Space
+      | Token::NewLine => {
         let (node, rest): (Node, Vec<Token>) = parse_instruction(tokens).unwrap();
         let mut nodes = vec![node];
         nodes.append(&mut parse(rest));
@@ -30,9 +37,14 @@ fn parse_instruction(tokens: Vec<Token>) -> Option<(Node, Vec<Token>)> {
   let tail: Vec<Token> = tokens[1..].to_vec();
 
   match head {
-    Token::Plus | Token::Minus | Token::Right | Token::Left | Token::Dot | Token::Comma => {
-      Some((parse_node_from_token(head).unwrap(), tail))
-    },
+    Token::Plus
+    | Token::Minus
+    | Token::Right
+    | Token::Left
+    | Token::Dot
+    | Token::Comma
+    | Token::Space
+    | Token::NewLine => Some((head.to_node().unwrap(), tail)),
     _ => None,
   }
 }
@@ -41,18 +53,6 @@ fn parse_loop(tokens: Vec<Token>) -> Option<(Node, Vec<Token>)> {
   let (loop_tokens, rest_tokens) = split_tokens(tokens);
   let loop_node: Node = Node::Loop(parse(loop_tokens));
   Some((loop_node, rest_tokens))
-}
-
-const fn parse_node_from_token(token: Token) -> Option<Node> {
-  match token {
-    Token::Dot => Some(Node::Dot),
-    Token::Comma => Some(Node::Comma),
-    Token::Plus => Some(Node::Plus),
-    Token::Minus => Some(Node::Minus),
-    Token::Left => Some(Node::Left),
-    Token::Right => Some(Node::Right),
-    _ => None,
-  }
 }
 
 fn split_tokens(tokens: Vec<Token>) -> (Vec<Token>, Vec<Token>) {

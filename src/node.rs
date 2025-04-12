@@ -7,4 +7,6 @@ pub enum Node {
   Left,
   Right,
   Loop(Vec<Node>),
+  Space,
+  NewLine,
 }

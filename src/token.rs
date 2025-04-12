@@ -1,3 +1,5 @@
+use crate::node::Node;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Token {
   Dot,
@@ -8,6 +10,24 @@ pub enum Token {
   Right,
   Open,
   Close,
+  Space,
+  NewLine,
+}
+
+impl Token {
+  pub const fn to_node(&self) -> Option<Node> {
+    match self {
+      Self::Dot => Some(Node::Dot),
+      Self::Comma => Some(Node::Comma),
+      Self::Plus => Some(Node::Plus),
+      Self::Minus => Some(Node::Minus),
+      Self::Left => Some(Node::Left),
+      Self::Right => Some(Node::Right),
+      Self::Space => Some(Node::Space),
+      Self::NewLine => Some(Node::NewLine),
+      _ => None,
+    }
+  }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
