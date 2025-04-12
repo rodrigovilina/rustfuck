@@ -10,16 +10,16 @@ pub fn parse(tokens: Vec<Token>) -> Vec<Node> {
         let mut nodes = vec![node];
         nodes.append(&mut parse(rest));
         nodes
-      }
+      },
       Token::Open => {
         let (node, rest): (Node, Vec<Token>) = parse_loop(tokens).unwrap();
         let mut nodes: Vec<Node> = vec![node];
         nodes.append(&mut parse(rest));
         nodes
-      }
+      },
       Token::Close => {
         panic!("Unexpected close bracket");
-      }
+      },
     },
     None => vec![],
   }
@@ -32,7 +32,7 @@ fn parse_instruction(tokens: Vec<Token>) -> Option<(Node, Vec<Token>)> {
   match head {
     Token::Plus | Token::Minus | Token::Right | Token::Left | Token::Dot | Token::Comma => {
       Some((parse_node_from_token(head).unwrap(), tail))
-    }
+    },
     _ => None,
   }
 }
@@ -61,7 +61,7 @@ fn split_tokens(tokens: Vec<Token>) -> (Vec<Token>, Vec<Token>) {
   let mut loop_tokens: Vec<Token> = vec![];
   let mut close_index: usize = 0;
 
-  if head != &Token::Open{
+  if head != &Token::Open {
     panic!("Expected open bracket");
   }
 
@@ -69,7 +69,7 @@ fn split_tokens(tokens: Vec<Token>) -> (Vec<Token>, Vec<Token>) {
     match token {
       Token::Open => depth += 1,
       Token::Close => depth -= 1,
-      _ => {}
+      _ => {},
     }
 
     if depth == 0 {
@@ -84,4 +84,3 @@ fn split_tokens(tokens: Vec<Token>) -> (Vec<Token>, Vec<Token>) {
 
   (loop_tokens, rest_tokens)
 }
-

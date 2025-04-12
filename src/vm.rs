@@ -47,7 +47,7 @@ impl<const N: usize> Brainfuck<N> {
           while self.data[self.data_pointer] != 0 {
             self.run(nodes.clone());
           }
-        }
+        },
       }
     }
   }

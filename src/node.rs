@@ -8,4 +8,3 @@ pub enum Node {
   Right,
   Loop(Vec<Node>),
 }
-

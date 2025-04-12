@@ -34,4 +34,3 @@ impl BalancedTokens {
     Self { tokens }
   }
 }
-
