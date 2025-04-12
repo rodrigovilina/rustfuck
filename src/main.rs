@@ -11,6 +11,7 @@ use {
 mod add;
 mod comma;
 mod dot;
+mod left;
 mod lexer;
 mod node;
 mod parser;

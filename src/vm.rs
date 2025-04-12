@@ -1,4 +1,4 @@
-use crate::{add::Add, comma::Comma, dot::Dot, node::Node, sub::Sub};
+use crate::{add::Add, comma::Comma, dot::Dot, left::Left, node::Node, sub::Sub};
 
 #[derive(Debug)]
 pub struct Brainfuck<const N: usize> {
@@ -58,29 +58,11 @@ impl<const N: usize> Brainfuck<N> {
       _ => self.data_pointer += 1,
     }
   }
-
-  fn left(&mut self) {
-    match self.data_pointer {
-      0 => self.data_pointer = N - 1,
-      _ => self.data_pointer -= 1,
-    }
-  }
 }
 
 #[cfg(test)]
 mod tests {
   use super::*;
-
-  #[test]
-  fn test_left() {
-    let mut vm: Brainfuck<10> = Brainfuck::<10>::new();
-
-    vm.left();
-    assert_eq!(vm.data_pointer, 9);
-
-    vm.left();
-    assert_eq!(vm.data_pointer, 8);
-  }
 
   #[test]
   fn test_rigth() {
