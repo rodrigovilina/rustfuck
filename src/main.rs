@@ -8,6 +8,7 @@ use {
   token::BalancedTokens,
 };
 
+mod add;
 mod lexer;
 mod node;
 mod parser;
