@@ -1,4 +1,4 @@
-use crate::token::{BalancedTokens, Token};
+use crate::{balanced_tokens::BalancedTokens, token::Token};
 
 pub fn lex_token_from_char(value: char) -> Option<Token> {
   match value {

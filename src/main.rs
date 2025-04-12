@@ -9,6 +9,7 @@
 #![deny(clippy::unwrap_used)]
 
 mod add;
+mod balanced_tokens;
 mod comma;
 mod dot;
 mod left;
@@ -22,9 +23,9 @@ mod vm;
 
 use {
   crate::{lexer::lex, parser::parse, vm::Brainfuck},
+  balanced_tokens::BalancedTokens,
   node::Node,
   std::io::{self, BufRead},
-  token::BalancedTokens,
 };
 
 fn main() {
