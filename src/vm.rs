@@ -34,21 +34,25 @@ impl<const N: usize> Brainfuck<N> {
     }
   }
 
-  pub fn run(&mut self, nodes: Vec<Node>) {
-    for node in nodes {
-      match node {
-        Node::Right => self.right(),
-        Node::Left => self.left(),
-        Node::Dot => self.dot(),
-        Node::Comma => self.comma(),
-        Node::Plus => self.add(),
-        Node::Minus => self.sub(),
-        Node::Loop(nodes) => {
-          while self.data[self.data_pointer] != 0 {
-            self.run(nodes.clone());
-          }
-        },
-      }
+  pub fn run(&mut self, nodes: &Vec<Node>) {
+    nodes.iter().for_each(|node| self.run_node(node));
+  }
+
+  fn run_node(&mut self, node: &Node) {
+    match node {
+      Node::Right => self.right(),
+      Node::Left => self.left(),
+      Node::Dot => self.dot(),
+      Node::Comma => self.comma(),
+      Node::Plus => self.add(),
+      Node::Minus => self.sub(),
+      Node::Loop(nodes) => self.run_loop(nodes),
+    }
+  }
+
+  fn run_loop(&mut self, nodes: &Vec<Node>) {
+    while self.data[self.data_pointer] != 0 {
+      self.run(nodes);
     }
   }
 }
