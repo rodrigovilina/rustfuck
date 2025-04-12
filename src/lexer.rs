@@ -1,6 +1,6 @@
 use crate::{balanced_tokens::BalancedTokens, token::Token};
 
-pub fn lex_token_from_char(value: char) -> Option<Token> {
+pub const fn lex_token_from_char(value: char) -> Option<Token> {
   match value {
     '.' => Some(Token::Dot),
     ',' => Some(Token::Comma),
@@ -15,64 +15,27 @@ pub fn lex_token_from_char(value: char) -> Option<Token> {
 }
 
 pub fn lex(code: &str) -> BalancedTokens {
-  BalancedTokens::new(
-    code
-      .chars()
-      .enumerate()
-      .filter_map(|(_, c)| lex_token_from_char(c))
-      .collect(),
-  )
+  BalancedTokens::new(code.chars().filter_map(lex_token_from_char).collect())
 }
 
 #[cfg(test)]
 mod tests {
   use super::*;
 
-  #[test]
-  fn lex_dot() {
-    let token = lex_token_from_char('.').unwrap();
-    assert_eq!(token, Token::Dot);
+  fn assert_lexed(lexeme: char, expected: Token) {
+    let token = lex_token_from_char(lexeme).unwrap();
+    assert_eq!(token, expected);
   }
 
   #[test]
-  fn lex_comma() {
-    let token = lex_token_from_char(',').unwrap();
-    assert_eq!(token, Token::Comma);
-  }
-
-  #[test]
-  fn lex_plus() {
-    let token = lex_token_from_char('+').unwrap();
-    assert_eq!(token, Token::Plus);
-  }
-
-  #[test]
-  fn lex_minus() {
-    let token = lex_token_from_char('-').unwrap();
-    assert_eq!(token, Token::Minus);
-  }
-
-  #[test]
-  fn lex_left() {
-    let token = lex_token_from_char('<').unwrap();
-    assert_eq!(token, Token::Left);
-  }
-
-  #[test]
-  fn lex_right() {
-    let token = lex_token_from_char('>').unwrap();
-    assert_eq!(token, Token::Right);
-  }
-
-  #[test]
-  fn lex_open() {
-    let token = lex_token_from_char('[').unwrap();
-    assert_eq!(token, Token::Open);
-  }
-
-  #[test]
-  fn lex_close() {
-    let token = lex_token_from_char(']').unwrap();
-    assert_eq!(token, Token::Close);
+  fn test_lex() {
+    assert_lexed('.', Token::Dot);
+    assert_lexed(',', Token::Comma);
+    assert_lexed('+', Token::Plus);
+    assert_lexed('-', Token::Minus);
+    assert_lexed('<', Token::Left);
+    assert_lexed('>', Token::Right);
+    assert_lexed('[', Token::Open);
+    assert_lexed(']', Token::Close);
   }
 }
